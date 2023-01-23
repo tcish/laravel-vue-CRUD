@@ -14,7 +14,10 @@ Install dependencies
 
 ```bash
 npm i
+composer i
 ```
+
+- **Now add .env file**
 
 Start the server
 
@@ -145,6 +148,8 @@ In About.vue
 
 ```bash
 npm i
+composer i
 npm run dev
 php artisan serve
 ```
+- **don't forget to add .env file**
