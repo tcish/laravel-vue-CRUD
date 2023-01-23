@@ -1,5 +1,5 @@
 import "./bootstrap";
-import { createApp } from "vue/dist/vue.esm-bundler";
+import { createApp } from "vue";
 import App from "./pages/App.vue";
 import router from "./router/index.js";
 
