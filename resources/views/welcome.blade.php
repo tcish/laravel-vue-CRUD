@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel 9 with vue 3 vite</title>
+    <title>Laravel 9 with vue 3 vite CRUD</title>
     @vite('resources/css/app.css')
 </head>
 
