@@ -1,66 +1,155 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Practice project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project will help to learn basic CRUD using Laravel, Vite, Vue, Vue-router.
 
-## About Laravel
+## Run Locally
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Clone the project
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash
+  git clone https://github.com/tcish/laravel-vue-CRUD.git
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Install dependencies
 
-## Learning Laravel
+```bash
+npm i
+composer i
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Now add .env file**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Start the server
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+npm run dev
+php artisan serve
+```
+## Initial installation from Scratch
+**Step-1:** Create a fresh laravel project
+```bash
+  composer create-project laravel/laravel example-app-name-here
+```
 
-## Laravel Sponsors
+**Step-2:** Now replace in laravel routes/web.php file
+```bash
+  Route::get('{any}', function () {
+      return view('welcome');
+  })->where("any", ".*");
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+**Step-3:** Now install dependecies using npm
+```bash
+  npm i @vitejs/plugin-vue vue@ext vue-loader vue-router@4
+```
 
-### Premium Partners
+**Step-4:** Now create index.js in resources\js\router\index.js, then write
+```bash
+  import { createRouter, createWebHistory } from "vue-router";
+  import Home from "../pages/Component/Home.vue";
+  import About from "../pages/Component/About.vue";
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+  const routes = [
+      {
+          path: "/",
+          name: "home",
+          component: Home,
+      },
+      {
+          path: "/about",
+          name: "about",
+          component: About,
+      },
+  ];
 
-## Contributing
+  const router = createRouter({
+      history: createWebHistory(import.meta.env.BASE_URL),
+      routes,
+  });
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+  export default router;
+```
 
-## Code of Conduct
+**Step-5:** Now create two files Home.vue, About.vue in resources\js\pages\Component\
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In Home.vue
+```bash
+  <template>
+    <router-link to="/about">About</router-link>
+  </template>
+```
 
-## Security Vulnerabilities
+In About.vue
+```bash
+  <template>
+    <router-link to="/">Home</router-link>
+  </template>
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Step-6:** Now create App.vue in resources\js\pages\App.vue, then write
+```bash
+  <template>
+    <router-view />
+  </template>
+```
 
-## License
+**Step-7:** Now create app.js in resources\js\app.js, then write
+```bash
+  import "./bootstrap";
+  import { createApp } from "vue";
+  import App from "./pages/App.vue";
+  import router from "./router/index.js";
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  const app = createApp(App);
+  app.use(router);
+  app.mount("#app");
+```
+
+**Step-8:** Now replace welcome.blade.php in resources\views\welcome.blade.php
+```bash
+  <!DOCTYPE html>
+  <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Laravel 9 with vue 3 vite</title>
+      @vite('resources/css/app.css')
+  </head>
+
+  <body>
+      <div id="app"></div>
+
+      @vite('resources/js/app.js')
+  </body>
+
+  </html>
+```
+
+**Step-9:** Add vue in vite.config.js
+```bash
+  import { defineConfig } from 'vite';
+  import laravel from 'laravel-vite-plugin';
+  import vue from '@vitejs/plugin-vue';
+
+  export default defineConfig({
+      plugins: [
+          vue(),
+          laravel({
+              input: ['resources/css/app.css', 'resources/js/app.js'],
+              refresh: true,
+          }),
+      ],
+  });
+```
+
+**Step-10:** Install dependencies and Start the server
+
+```bash
+npm i
+composer i
+npm run dev
+php artisan serve
+```
+- **don't forget to add .env file**
