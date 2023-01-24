@@ -29,7 +29,7 @@ Start the server
 npm run dev
 php artisan serve
 ```
-- **Then go to [http://127.0.0.1:8000]**
+- **Then go to [http://127.0.0.1:8000] and click on GENERATE APP KEY**
 ## Initial installation from Scratch
 **Step-1:** Create a fresh laravel project
 ```bash
@@ -158,4 +158,4 @@ npm run dev
 php artisan serve
 ```
 - **Don't forget to add .env file**
-- **Then go to [http://127.0.0.1:8000]**
+- **Then go to [http://127.0.0.1:8000] and click on GENERATE APP KEY**
