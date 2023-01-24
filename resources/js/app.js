@@ -1,8 +1,9 @@
 import "./bootstrap";
 import { createApp } from "vue";
+import ViewUIPlus from "view-ui-plus";
 import App from "./pages/App.vue";
 import router from "./router/index.js";
+import "view-ui-plus/dist/styles/viewuiplus.css";
 
 const app = createApp(App);
-app.use(router);
-app.mount("#app");
+app.use(router).use(ViewUIPlus).mount("#app");
