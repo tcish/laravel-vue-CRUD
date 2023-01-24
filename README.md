@@ -18,13 +18,18 @@ composer i
 ```
 
 - **Now add .env file**
-
+- **Connect with Database**
+- **Run migration to add table**
+```bash
+php artisan migrate
+```
 Start the server
 
 ```bash
 npm run dev
 php artisan serve
 ```
+- **Then go to [http://127.0.0.1:8000]**
 ## Initial installation from Scratch
 **Step-1:** Create a fresh laravel project
 ```bash
@@ -152,4 +157,5 @@ composer i
 npm run dev
 php artisan serve
 ```
-- **don't forget to add .env file**
+- **Don't forget to add .env file**
+- **Then go to [http://127.0.0.1:8000]**
