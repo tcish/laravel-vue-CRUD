@@ -30,7 +30,7 @@ npm run dev
 php artisan serve
 ```
 - **Then go to [http://127.0.0.1:8000] and click on GENERATE APP KEY**
-## Initial installation from Scratch
+## Initial installation from Scratch(only structure)
 **Step-1:** Create a fresh laravel project
 ```bash
   composer create-project laravel/laravel example-app-name-here
