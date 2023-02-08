@@ -11,11 +11,6 @@ import Dashboard from "../views/Dashboard.vue";
 const routes = [
     {
         path: "/",
-        name: "Home",
-        component: Home,
-    },
-    {
-        path: "/login",
         name: "Login",
         component: Login,
         meta: { guestOnly: true },

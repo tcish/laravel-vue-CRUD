@@ -1,37 +1,28 @@
 <template>
   <div class="main__container">
-    <nav>
-      <span>
-        <router-link to="/login">Login</router-link> |
-        <router-link to="/register">Register</router-link>
-      </span>
-    </nav>
-
-    <h1 class="text-center">Login</h1>
-    <div class="card">
-      <div class="card-body">
-        <div class="form-group">
-          <label for="email">Email address:</label>
-          <input
-            type="email"
-            v-model="form.email"
-            class="form-control"
-            id="email"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input
+    <div style="width: 300px">
+      <nav>
+        <span>
+          <router-link to="/">Login</router-link> |
+          <router-link to="/register">Register</router-link>
+        </span>
+      </nav>
+      <h1 style="text-align: center">Login</h1>
+      <Form ref="login" :model="form" :rules="rule">
+        <FormItem label="Email" prop="email">
+          <Input v-model="form.email" placeholder="Enter your email"></Input>
+        </FormItem>
+        <FormItem label="Password" prop="password">
+          <Input
             type="password"
             v-model="form.password"
-            class="form-control"
-            id="password"
-          />
-        </div>
-        <button @click.prevent="login" class="btn btn-primary btn-block">
-          Login
-        </button>
-      </div>
+            placeholder="Enter your password"
+          ></Input>
+        </FormItem>
+        <FormItem>
+          <Button type="primary" @click="handleSubmit('login')">Submit</Button>
+        </FormItem>
+      </Form>
     </div>
   </div>
 </template>
@@ -46,24 +37,60 @@ export default {
         email: "",
         password: "",
       },
+
+      rule: {
+        email: [
+          {
+            required: true,
+            message: "E-mail cannot be empty!",
+            trigger: "blur",
+          },
+          {
+            type: "email",
+            message: "Incorrect email format!",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "Password cannot be empty!",
+            trigger: "blur",
+          },
+          {
+            min: 8,
+            message: "Password length must be at least 8!",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
-    login() {
-      this.getCookie();
+    handleSubmit(formRefName) {
+      this.$refs[formRefName].validate((valid) => {
+        if (valid) {
+          this.getCookie();
 
-      axios
-        .post("/login", this.form)
-        .then((response) => {
-          this.$Message.success("Inserted Successfully!");
-          // this.handleReset(formRefName);
-          this.$root.$emit("login", true);
-          localStorage.setItem("auth", "true");
-          this.$router.push({ name: "Dashboard" });
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
+          axios
+            .post("/login", this.form)
+            .then(() => {
+              this.$root.$emit("login", true);
+              localStorage.setItem("auth", "true");
+              this.$router.push({ name: "Dashboard" });
+              this.$refs[formRefName].resetFields();
+            })
+            .catch((error) => {
+              console.log(error.response);
+              if (error.response.data.message) {
+                this.$Notice.error({
+                  title: "Login Failed!",
+                  desc: error.response.data.message,
+                });
+              }
+            });
+        }
+      });
     },
 
     getCookie() {
