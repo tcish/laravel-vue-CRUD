@@ -31,7 +31,7 @@
 </template>
 <script>
 import axios from "axios";
-import HeaderLink from "./component/HeaderLink.vue";
+import HeaderLink from "../Component/HeaderLink.vue";
 
 export default {
   components: {
@@ -98,7 +98,7 @@ export default {
             .then(() => {
               this.$Message.success("Updated Successfully!");
               this.handleReset(form);
-              this.$router.push("/");
+              this.$router.push("/dashboard/list");
             })
             .catch((error) => {
               if (error.response.data.message) {

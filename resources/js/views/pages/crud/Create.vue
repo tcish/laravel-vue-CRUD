@@ -32,7 +32,7 @@
 
 <script>
 import axios from "axios";
-import HeaderLink from "./Component/HeaderLink.vue";
+import HeaderLink from "../Component/HeaderLink.vue";
 
 export default {
   components: {
@@ -87,7 +87,7 @@ export default {
             .then((response) => {
               this.$Message.success("Inserted Successfully!");
               this.handleReset(formRefName);
-              this.$router.push("/");
+              this.$router.push("/dashboard/list");
             })
             .catch((error) => {
               if (error.response.data.message) {

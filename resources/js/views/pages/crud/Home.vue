@@ -4,7 +4,7 @@
 
     <Table stripe border height="auto" :columns="columns" :data="data">
       <template #action="{ row }">
-        <router-link :to="'/edit/' + row.id">
+        <router-link :to="'/dashboard/edit/' + row.id">
           <Button type="primary" size="small" style="margin-right: 5px"
             >Edit</Button
           >
@@ -18,7 +18,7 @@
 </template>
 <script>
 import axios from "axios";
-import HeaderLink from "./component/HeaderLink.vue";
+import HeaderLink from "../Component/HeaderLink.vue";
 
 export default {
   components: {

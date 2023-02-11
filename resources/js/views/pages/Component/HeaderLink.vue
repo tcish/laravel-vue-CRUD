@@ -1,8 +1,7 @@
 <template>
   <nav>
     <span>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/create">Create</router-link> |
+      <router-link to="/dashboard/create">Create</router-link>
     </span>
   </nav>
 </template>

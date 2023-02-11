@@ -1,54 +1,61 @@
 <template>
-  <div class="home col-8 mx-auto py-5 mt-5">
-    <h1>Dashboard</h1>
-    <div class="card">
-      <div class="card-body" v-if="user">
-        <h3>Hello, {{ user.name }}</h3>
-        <span>{{ user.email }}</span>
-        <button type="submit" @click.prevent="logout">Logout</button>
-      </div>
+  <div class="app-admin-wrap-layout-2">
+    <Header />
+    <Sidebar />
+    <div
+      :class="
+        store.state.largeSidebar.sidebarToggleProperties.isSideNavOpen === true
+          ? ''
+          : 'full'
+      "
+      class="main-content-wrap"
+    >
+      <main>
+        <div class="main-content-wrap flex flex-col print-area h-screen pt-16">
+          <div class="flex-grow">
+            <router-view />
+          </div>
+
+          <Footer />
+        </div>
+      </main>
     </div>
   </div>
 </template>
 
-<script>
-import Cookie from "js-cookie";
+<script setup>
+import { useStore } from "vuex";
+import Header from "../views/pages/layout/Header.vue";
+import Sidebar from "../views/pages/layout/Sidebar.vue";
+import Footer from "../views/pages/layout/Footer.vue";
 
-export default {
-  data() {
-    return {
-      user: null,
-    };
-  },
-
-  methods: {
-    logout() {
-      this.getCookie();
-
-      return axios.post("/logout").then(() => {
-        this.$root.$emit("login", false);
-        localStorage.removeItem("auth");
-        this.$router.push({ name: "Dashboard" });
-      });
-    },
-
-    getCookie() {
-      let token = Cookie.get("XSRF-TOKEN");
-
-      if (token) {
-        return new Promise((resolve) => {
-          resolve(token);
-        });
-      }
-
-      return axios.get("/csrf-cookie");
-    },
-  },
-
-  mounted() {
-    axios.get("/api/user").then((response) => {
-      this.user = response.data;
-    });
-  },
-};
+let store = useStore();
 </script>
+
+<style lang="scss" scoped>
+.app-admin-wrap-layout-2 {
+  width: 100%;
+  // height: 100%;
+  .main-content-wrap {
+    width: calc(100% - 90px);
+    margin-left: 70px;
+    // min-height: 100vh;
+    // margin-top: 30px;
+    transition: all 0.24s ease-in-out;
+    .main-content-body {
+      min-height: calc(100vh - 80px);
+    }
+    &.full {
+      width: 100%;
+      margin-left: 0px;
+      transition: all 0.24s ease-in-out;
+    }
+    @media screen and (max-width: 991px) {
+      width: 100%;
+      margin-left: 0px;
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+  }
+}
+</style>

@@ -24,8 +24,43 @@ const routes = [
     {
         path: "/dashboard",
         name: "Dashboard",
-        component: Dashboard,
+        component: () => import("../views/Dashboard.vue"),
+        redirect: "/body",
         meta: { authOnly: true },
+        children: [
+            {
+                path: "/body",
+                name: "Home",
+                component: () => import("../views/Home.vue"),
+                meta: {
+                    title: "Home",
+                },
+            },
+            {
+                path: "/dashboard/list",
+                name: "List",
+                component: () => import("../views/pages/crud/Home.vue"),
+                meta: {
+                    title: "List",
+                },
+            },
+            {
+                path: "/dashboard/create",
+                name: "Create",
+                component: () => import("../views/pages/crud/Create.vue"),
+                meta: {
+                    title: "Create",
+                },
+            },
+            {
+                path: "/dashboard/edit/:id",
+                name: "Edit",
+                component: () => import("../views/pages/crud/Edit.vue"),
+                meta: {
+                    title: "Edit",
+                },
+            },
+        ],
     },
 
     // {
@@ -60,7 +95,7 @@ router.beforeEach((to, from, next) => {
         // if not, redirect to login page.
         if (!isLoggedIn()) {
             next({
-                path: "/login",
+                path: "/",
                 query: { redirect: to.fullPath },
             });
         } else {
